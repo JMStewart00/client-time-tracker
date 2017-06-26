@@ -10,9 +10,10 @@
 		include '../common.php';
 		include '../client.php';
 		// include 'activity.php';
-		// include 'category.php';
+		include '../category.php';
 		?>
-		<div class="container w-70 mx-auto">
+
+		<div class="container w-70">
 			
 			<h1 class="text-center pt-3">Manage Clients</h1>
 
@@ -26,7 +27,7 @@
 			
 			<?php include ('../components/new_client_form.php') ?>
 			<?php foreach (getClients() as $client) { ?>
-				<form class="form-inline pb-3 mx-auto text-center">
+				<form method="get" class="form-inline pb-3 mx-auto text-center">
 
 				  <label class="sr-only" for="clientName">Name</label>
 				  <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="clientName" name="name" value="<?=$client['name'];?>" >
@@ -38,7 +39,13 @@
 				</form>
 
 			<?php 
-}
+			$categories = getCategories($client['id']) OR array();
+
+			global $active_client;
+			if ($active_client == $client['id']) {
+				include('../components/category_list.php');
+			}
+				}
 
 			 ?>
 

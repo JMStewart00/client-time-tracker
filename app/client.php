@@ -20,7 +20,9 @@
 				}
 				break;
 			case 'edit_categories':
-				# code...
+				
+
+				
 				break;
 			case 'delete':
 				deleteClient($safeid);
