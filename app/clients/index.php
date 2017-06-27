@@ -12,45 +12,39 @@
 		// include 'activity.php';
 		include '../category.php';
 		?>
-
-		<div class="container w-70">
-			
-			<h1 class="text-center pt-3">Manage Clients</h1>
-
-
-
-			<?php if ($status_message['text']) { ?>
-			<div class="alert <?=$status_message['style'];?>" role="alert">
-				<strong>Head's up! </strong><?=$status_message['text'];?>
+		<div class="container w-50 d-block mx-auto">
+			<p><a href="/">Home</a></p>
+			<h1 class="text-center">Manage Clients</h1>
+			<?php
+			if ($status_message['text']) {
+			?>
+			<div class="alert <?php echo $status_message['style']; ?>" role="alert">
+				<strong>Heads up!</strong> <?=$status_message['text'];?>
 			</div>
-			<?php } ?>
-			
-			<?php include ('../components/new_client_form.php') ?>
-			<?php foreach (getClients() as $client) { ?>
-				<form method="get" class="form-inline pb-3 mx-auto text-center">
-
-				  <label class="sr-only" for="clientName">Name</label>
-				  <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="clientName" name="name" value="<?=$client['name'];?>" >
-
-					<input type="hidden" name="id" value="<?=$client['id'];?>">
-				  <button type="submit" class="btn btn-outline-primary mr-2"  name="submit" value="save"><i class="fa fa-save" aria-hidden="true"></i></button>
-				  <button type="submit" class="btn btn-outline-success mr-2" name="submit" value="editCategories"><i class="fa fa-list" aria-hidden="true" ></i></button>
-				  <button type="submit" class="btn btn-outline-danger mr-2"  name="submit" value="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-				</form>
-
-			<?php 
-			$categories = getCategories($client['id']) OR array();
-
+			<?php
+			}
+			?>
+			<?php include('../components/new_client_form.php'); ?>
+			<?php
+			foreach (getClients() as $client) {
+			?>
+			<form method="get" class="form-inline pb-3">
+				<label class="sr-only" for="clientName">Name</label>
+				<input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="clientName" name="name" value="<?=$client['name'];?>">
+				<input type="hidden" name="id" value="<?=$client['id'];?>">
+				<button type="submit" class="btn btn-primary mr-2" name="submit" value="save"><i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+				<button type="submit" class="btn btn-success mr-2" name="submit" value="edit_categories"><i class="fa fa-list" aria-hidden="true"></i></button>
+				<button type="submit" class="btn btn-danger" name="submit" value="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+			</form>
+			<?php
+			$categories = getCategories($client['id']);
 			global $active_client;
 			if ($active_client == $client['id']) {
-				include('../components/category_list.php');
+			include('../components/category_list.php');
 			}
-				}
-
-			 ?>
-
-
-
+			}
+			?>
+			
 			<footer>
 				<nav class="text-center navbar fixed-bottom d-inline-block bg-inverse">
 					<a href="/clients"><h4>Manage Clients</h4></a>
